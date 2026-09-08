@@ -32,6 +32,20 @@ const PROJECTS = [
     codeUrl: "https://github.com/aayshaf/kitchen-tec-business-suite",
     demoLabel: "Watch Demo",
     demoUrl: "#",
+    image: "/projects/kitchen-tec-dashboard.png",
+    imageAlt: "Kitchen Tec Business Suite dashboard showing invoicing totals, outstanding balances, and recent invoices/expenses",
+    screenshots: [
+      {
+        src: "/projects/kitchen-tec-comparison.png",
+        alt: "Weighted multi-criteria supplier comparison with plain-language reasoning for why the top-ranked supplier isn't the cheapest",
+        caption: "Procurement comparison with plain-language reasoning",
+      },
+      {
+        src: "/projects/kitchen-tec-invoices.png",
+        alt: "Invoices and quotations list with status filters",
+        caption: "Invoices & quotations",
+      },
+    ],
   },
   {
     id: "cleaning",
@@ -50,6 +64,9 @@ const PROJECTS = [
     codeUrl: "https://github.com/aayshaf/cleaning-management-system",
     demoLabel: null,
     demoUrl: null,
+    image: null,
+    imageAlt: null,
+    screenshots: null,
   },
   {
     id: "blog",
@@ -68,6 +85,9 @@ const PROJECTS = [
     codeUrl: "https://github.com/aayshaf/editorial-blog-system",
     demoLabel: "Live Demo",
     demoUrl: "#",
+    image: null,
+    imageAlt: null,
+    screenshots: null,
   },
   {
     id: "haptic",
@@ -86,6 +106,9 @@ const PROJECTS = [
     codeUrl: null,
     demoLabel: "Watch Demo",
     demoUrl: "#",
+    image: null,
+    imageAlt: null,
+    screenshots: null,
   },
 ];
 
@@ -152,7 +175,8 @@ function Navbar({ scrolled }: { scrolled: boolean }) {
 
         <div className="hidden lg:flex items-center gap-3">
           <a
-            href="#"
+            href="/Farhath_Aaysha_CV.pdf"
+            download
             className="text-sm px-4 py-2 bg-[#6EDFC8] text-[#09090F] font-semibold rounded font-body hover:bg-[#8EEBD6] transition-colors duration-200"
           >
             Download CV
@@ -196,7 +220,8 @@ function Navbar({ scrolled }: { scrolled: boolean }) {
             </a>
           ))}
           <a
-            href="#"
+            href="/Farhath_Aaysha_CV.pdf"
+            download
             className="self-start text-sm px-4 py-2 bg-[#6EDFC8] text-[#09090F] font-semibold rounded mt-1"
           >
             Download CV
@@ -211,7 +236,7 @@ function HeroSection() {
   return (
     <section
       id="home"
-      className="min-h-screen flex flex-col justify-center pt-24 pb-20 px-6 max-w-6xl mx-auto"
+      className="relative min-h-screen flex flex-col justify-center pt-24 pb-20 px-6 max-w-6xl mx-auto"
     >
       <div className="max-w-3xl">
         <p className="font-mono text-xs text-[#6EDFC8] tracking-widest uppercase mb-6">
@@ -250,7 +275,8 @@ function HeroSection() {
             LinkedIn
           </a>
           <a
-            href="#"
+            href="/Farhath_Aaysha_CV.pdf"
+            download
             className="flex items-center gap-2 px-5 py-2.5 bg-[#6EDFC8] text-[#09090F] text-sm font-semibold rounded hover:bg-[#8EEBD6] transition-colors duration-200"
           >
             <DownloadIcon />
@@ -407,6 +433,15 @@ function CaseStudy({ project }: { project: (typeof PROJECTS)[0] }) {
           ))}
         </div>
 
+        {project.image && (
+          <img
+            src={project.image}
+            alt={project.imageAlt ?? ""}
+            className="w-full rounded border border-[#222230] mb-6"
+            loading="lazy"
+          />
+        )}
+
         <button
           onClick={() => setOpen(!open)}
           className="flex items-center gap-2 font-mono text-xs text-[#6EDFC8] hover:text-[#8EEBD6] transition-colors"
@@ -425,22 +460,42 @@ function CaseStudy({ project }: { project: (typeof PROJECTS)[0] }) {
       </div>
 
       {open && (
-        <div className="border-t border-[#222230] p-8 md:p-10 grid md:grid-cols-2 gap-8">
-          {[
-            { label: "Problem", text: project.problem },
-            { label: "Approach", text: project.approach },
-            { label: "A Challenge I Solved", text: project.challenge },
-            { label: "Result", text: project.result },
-          ].map((item) =>
-            item.text ? (
-              <div key={item.label}>
-                <p className="font-mono text-xs text-[#6EDFC8] uppercase tracking-widest mb-3">
-                  {item.label}
-                </p>
-                <p className="font-body text-[#ABABBA] text-sm leading-relaxed">{item.text}</p>
-              </div>
-            ) : null
+        <div className="border-t border-[#222230] p-8 md:p-10">
+          {project.screenshots && (
+            <div className="grid sm:grid-cols-2 gap-4 mb-10">
+              {project.screenshots.map((s) => (
+                <figure key={s.src}>
+                  <img
+                    src={s.src}
+                    alt={s.alt}
+                    className="w-full rounded border border-[#222230]"
+                    loading="lazy"
+                  />
+                  <figcaption className="font-mono text-[10px] text-[#7B7B8E] mt-2 tracking-wide">
+                    {s.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
           )}
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              { label: "Problem", text: project.problem },
+              { label: "Approach", text: project.approach },
+              { label: "A Challenge I Solved", text: project.challenge },
+              { label: "Result", text: project.result },
+            ].map((item) =>
+              item.text ? (
+                <div key={item.label}>
+                  <p className="font-mono text-xs text-[#6EDFC8] uppercase tracking-widest mb-3">
+                    {item.label}
+                  </p>
+                  <p className="font-body text-[#ABABBA] text-sm leading-relaxed">{item.text}</p>
+                </div>
+              ) : null
+            )}
+          </div>
         </div>
       )}
     </div>
@@ -449,39 +504,49 @@ function CaseStudy({ project }: { project: (typeof PROJECTS)[0] }) {
 
 function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
   return (
-    <div className="border border-[#222230] bg-[#111118] rounded p-6 flex flex-col gap-4 hover:border-[#333345] transition-colors duration-200">
-      <div>
-        <h3 className="font-display text-xl font-semibold text-[#EDEAE4] mb-2">
-          {project.title}
-        </h3>
-        <p className="font-body text-[#ABABBA] text-sm leading-relaxed">{project.summary}</p>
-      </div>
-      <div className="flex-1">
-        <p className="font-body text-[#7B7B8E] text-xs leading-relaxed">{project.result}</p>
-      </div>
-      <div className="flex flex-wrap gap-1.5 mt-auto">
-        {project.tags.map((t) => (
-          <Tag key={t} label={t} />
-        ))}
-      </div>
-      <div className="flex gap-2 pt-2 border-t border-[#1A1A24]">
-        {project.codeUrl ? (
-          <a
-            href={project.codeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-[#7B7B8E] hover:text-[#6EDFC8] transition-colors"
-          >
-            View Code →
-          </a>
-        ) : (
-          <span className="text-xs text-[#444455]">No public repo (university project)</span>
-        )}
-        {project.demoUrl && (
-          <a href={project.demoUrl} className="text-xs text-[#7B7B8E] hover:text-[#6EDFC8] transition-colors ml-auto">
-            {project.demoLabel} →
-          </a>
-        )}
+    <div className="border border-[#222230] bg-[#111118] rounded overflow-hidden flex flex-col hover:border-[#333345] transition-colors duration-200">
+      {project.image && (
+        <img
+          src={project.image}
+          alt={project.imageAlt ?? ""}
+          className="w-full aspect-video object-cover object-top border-b border-[#222230]"
+          loading="lazy"
+        />
+      )}
+      <div className="p-6 flex flex-col gap-4 flex-1">
+        <div>
+          <h3 className="font-display text-xl font-semibold text-[#EDEAE4] mb-2">
+            {project.title}
+          </h3>
+          <p className="font-body text-[#ABABBA] text-sm leading-relaxed">{project.summary}</p>
+        </div>
+        <div className="flex-1">
+          <p className="font-body text-[#7B7B8E] text-xs leading-relaxed">{project.result}</p>
+        </div>
+        <div className="flex flex-wrap gap-1.5 mt-auto">
+          {project.tags.map((t) => (
+            <Tag key={t} label={t} />
+          ))}
+        </div>
+        <div className="flex gap-2 pt-2 border-t border-[#1A1A24]">
+          {project.codeUrl ? (
+            <a
+              href={project.codeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-[#7B7B8E] hover:text-[#6EDFC8] transition-colors"
+            >
+              View Code →
+            </a>
+          ) : (
+            <span className="text-xs text-[#444455]">No public repo (university project)</span>
+          )}
+          {project.demoUrl && (
+            <a href={project.demoUrl} className="text-xs text-[#7B7B8E] hover:text-[#6EDFC8] transition-colors ml-auto">
+              {project.demoLabel} →
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );
