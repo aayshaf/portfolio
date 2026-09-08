@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+@theme inline {
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-background: #09090F;
+  --color-foreground: #EDEAE4;
+  --color-card: #111118;
+  --color-card-foreground: #EDEAE4;
+  --color-primary: #6EDFC8;
+  --color-primary-foreground: #09090F;
+  --color-secondary: #1A1A24;
+  --color-secondary-foreground: #EDEAE4;
+  --color-muted: #1E1E2A;
+  --color-muted-foreground: #7B7B8E;
+  --color-accent: #6EDFC8;
+  --color-accent-foreground: #09090F;
+  --color-border: #222230;
+  --color-ring: #6EDFC8;
+  --radius: 0.375rem;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+}
+
+html {
+  scroll-behavior: smooth;
+}
